@@ -3,5 +3,171 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-  }
+    "ngx-deformateur": {
+      "projectType": "library",
+      "root": "projects/ngx-deformateur",
+      "sourceRoot": "projects/ngx-deformateur/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "tsConfig": "projects/ngx-deformateur/tsconfig.lib.json",
+            "project": "projects/ngx-deformateur/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/ngx-deformateur/tsconfig.lib.prod.json"
+            }
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/ngx-deformateur/src/test.ts",
+            "tsConfig": "projects/ngx-deformateur/tsconfig.spec.json",
+            "karmaConfig": "projects/ngx-deformateur/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/ngx-deformateur/tsconfig.lib.json",
+              "projects/ngx-deformateur/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    },
+    "ngx-deformateur-example": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        }
+      },
+      "root": "projects/ngx-deformateur-example",
+      "sourceRoot": "projects/ngx-deformateur-example/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/ngx-deformateur-example",
+            "index": "projects/ngx-deformateur-example/src/index.html",
+            "main": "projects/ngx-deformateur-example/src/main.ts",
+            "polyfills": "projects/ngx-deformateur-example/src/polyfills.ts",
+            "tsConfig": "projects/ngx-deformateur-example/tsconfig.app.json",
+            "aot": true,
+            "assets": [
+              "projects/ngx-deformateur-example/src/favicon.ico",
+              "projects/ngx-deformateur-example/src/assets"
+            ],
+            "styles": [
+              "node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "projects/ngx-deformateur-example/src/styles.scss"
+            ],
+            "scripts": [
+              "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"
+            ]
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "projects/ngx-deformateur-example/src/environments/environment.ts",
+                  "with": "projects/ngx-deformateur-example/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "ngx-deformateur-example:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "ngx-deformateur-example:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "ngx-deformateur-example:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/ngx-deformateur-example/src/test.ts",
+            "polyfills": "projects/ngx-deformateur-example/src/polyfills.ts",
+            "tsConfig": "projects/ngx-deformateur-example/tsconfig.spec.json",
+            "karmaConfig": "projects/ngx-deformateur-example/karma.conf.js",
+            "assets": [
+              "projects/ngx-deformateur-example/src/favicon.ico",
+              "projects/ngx-deformateur-example/src/assets"
+            ],
+            "styles": [
+              "projects/ngx-deformateur-example/src/styles.scss"
+            ],
+            "scripts": []
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/ngx-deformateur-example/tsconfig.app.json",
+              "projects/ngx-deformateur-example/tsconfig.spec.json",
+              "projects/ngx-deformateur-example/e2e/tsconfig.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        },
+        "e2e": {
+          "builder": "@angular-devkit/build-angular:protractor",
+          "options": {
+            "protractorConfig": "projects/ngx-deformateur-example/e2e/protractor.conf.js",
+            "devServerTarget": "ngx-deformateur-example:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "ngx-deformateur-example:serve:production"
+            }
+          }
+        }
+      }
+    }},
+  "cli": {
+    "analytics": "1befe4be-a680-45be-915e-3ba6b348a4d0"
+  },
+  "defaultProject": "ngx-deformateur"
 }
